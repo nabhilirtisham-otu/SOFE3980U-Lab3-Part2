@@ -27,4 +27,58 @@ public class BinaryAPIController {
 		// http://localhost:8080/add?operand1=111&operand2=1010
 	}
 
+	//new String-based/JSON-based endpoints for multiplication, logicalAnd, and logicalOr
+	@GetMapping("/multiply")
+    public String multiplyString(
+            @RequestParam(name="operand1", defaultValue="") String operand1,
+            @RequestParam(name="operand2", defaultValue="") String operand2) {
+
+        return Binary.multiply(new Binary(operand1), new Binary(operand2)).getValue();
+    }
+
+    @GetMapping("/multiply_json")
+    public BinaryAPIResult multiplyJSON(
+            @RequestParam(name="operand1", defaultValue="") String operand1,
+            @RequestParam(name="operand2", defaultValue="") String operand2) {
+
+        Binary n1 = new Binary(operand1);
+        Binary n2 = new Binary(operand2);
+        return new BinaryAPIResult(n1, "multiply", n2, Binary.multiply(n1, n2));
+    }
+
+    @GetMapping("/and")
+    public String andString(
+            @RequestParam(name="operand1", defaultValue="") String operand1,
+            @RequestParam(name="operand2", defaultValue="") String operand2) {
+
+        return Binary.logicalAnd(new Binary(operand1), new Binary(operand2)).getValue();
+    }
+
+    @GetMapping("/and_json")
+    public BinaryAPIResult andJSON(
+            @RequestParam(name="operand1", defaultValue="") String operand1,
+            @RequestParam(name="operand2", defaultValue="") String operand2) {
+
+        Binary n1 = new Binary(operand1);
+        Binary n2 = new Binary(operand2);
+        return new BinaryAPIResult(n1, "and", n2, Binary.logicalAnd(n1, n2));
+    }
+
+    @GetMapping("/or")
+    public String orString(
+            @RequestParam(name="operand1", defaultValue="") String operand1,
+            @RequestParam(name="operand2", defaultValue="") String operand2) {
+
+        return Binary.logicalOr(new Binary(operand1), new Binary(operand2)).getValue();
+    }
+
+    @GetMapping("/or_json")
+    public BinaryAPIResult orJSON(
+            @RequestParam(name="operand1", defaultValue="") String operand1,
+            @RequestParam(name="operand2", defaultValue="") String operand2) {
+
+        Binary n1 = new Binary(operand1);
+        Binary n2 = new Binary(operand2);
+        return new BinaryAPIResult(n1, "or", n2, Binary.logicalOr(n1, n2));
+    }
 }

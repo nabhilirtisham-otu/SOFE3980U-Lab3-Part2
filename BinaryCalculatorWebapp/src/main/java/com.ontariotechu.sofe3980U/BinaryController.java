@@ -30,6 +30,20 @@ public class BinaryController {
 			case "+":
 				model.addAttribute("result", Binary.add(number1,number2).getValue());
 				return "result";
+			
+			//new cases for multiplication, logicalAnd, and logicalOr
+			case "*":
+                model.addAttribute("result", Binary.multiply(number1, number2).getValue());
+                return "result";
+
+            case "&":
+                model.addAttribute("result", Binary.logicalAnd(number1, number2).getValue());
+                return "result";
+
+            case "|":
+                model.addAttribute("result", Binary.logicalOr(number1, number2).getValue());
+                return "result";
+			
 			default:
 				return "Error";
 		}
